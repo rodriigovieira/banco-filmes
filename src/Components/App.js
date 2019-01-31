@@ -45,7 +45,7 @@ export default class App extends Component {
         {this.state.displayLoading && (
           <p stype={{ margin: 5, fontSize: 32 }}>Carregando...</p>
         )}
-        {this.state.ready &&
+        {this.state.ready ?
           this.state.movieData.results.map(movie => {
               let genreList = [];
               if (movie.genre_ids) {
@@ -65,7 +65,7 @@ export default class App extends Component {
                 genres={genreList}
               />
             );
-          })}
+          }) : <p>Digite acima o nome do filme ou o gênero que você gostaria de buscar.</p>}
       </div>
     );
   }
