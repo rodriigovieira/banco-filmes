@@ -24,7 +24,11 @@ export default class App extends Component {
     const indexOfLastResult = resultsPerPage * currentPage;
     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
 
-    const apiLink = `https://api.themoviedb.org/3/search/multi?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&query=${searchText}&page=1&include_adult=true`;
+    const searchByMovieTitle = `https://api.themoviedb.org/3/search/movie?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&query=${searchText}&page=1&include_adult=true`;
+
+    const searchByYear = `https://api.themoviedb.org/3/discover/movie?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&sort_by=popularity.desc&include_adult=true&include_video=true&page=1&year=${searchText}`
+    
+    const apiLink = isNaN(searchText) ? searchByMovieTitle : searchByYear;
 
     fetch(apiLink)
       .then(response => response.json())
@@ -41,14 +45,31 @@ export default class App extends Component {
       });
   };
 
-  componentDidMount() {
-    // Fetching list of genres from TMDB with ID and name
-    fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR")
-      .then(response => response.json())
-      .then(genreList => this.setState({ genreList: genreList.genres }));
+  handleResultsPerPage = (event) => {
+    const indexOfLastResult = event.target.value * this.state.currentPage;
+    const indexOfFirstResult = indexOfLastResult - event.target.value;
+
+    this.setState({
+      resultsPerPage: event.target.value,
+      displayData: this.state.movieData.slice(indexOfFirstResult, indexOfLastResult)
+    });
+
+    // Saving user's choice to LocalStorage
+    localStorage.setItem('resultsPerPage', event.target.value);
   }
 
-  emptyList = () => {
+  handlePageChange = (event) => {
+    const indexOfLastResult = this.state.resultsPerPage * event.target.id;
+    const indexOfFirstResult = indexOfLastResult - this.state.resultsPerPage;
+    const displayData = this.state.movieData.slice(indexOfFirstResult, indexOfLastResult);
+
+    this.setState({
+      currentPage: event.target.id,
+      displayData,
+    })
+  }
+
+  handleEmptyList = () => {
     this.setState({ ready: false, instructions: true });
   };
 
@@ -65,27 +86,13 @@ export default class App extends Component {
       return (
         <Movie
           key={index}
-          title={movie.title}
-          rating={movie.vote_average}
-          date={movie.release_date}
-          overview={movie.overview}
+          data={movie}
           image={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
           genres={genreList}
         />
       );
     });
   };
-
-  handlePageChange = (event) => {
-    const indexOfLastResult = this.state.resultsPerPage * event.target.id;
-    const indexOfFirstResult = indexOfLastResult - this.state.resultsPerPage;
-    const displayData = this.state.movieData.slice(indexOfFirstResult, indexOfLastResult);
-
-    this.setState({
-      currentPage: event.target.id,
-      displayData,
-    })
-  }
 
   renderPageList = () => {
     const { movieData, resultsPerPage } = this.state;
@@ -109,6 +116,18 @@ export default class App extends Component {
     })
   }
 
+  componentDidMount() {
+    // Fetching list of genres from TMDB with ID and name
+    fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR")
+      .then(response => response.json())
+      .then(genreList => this.setState({ genreList: genreList.genres }));
+
+    // Accessing LocalStorage and defining number of results per page
+    if (localStorage.getItem('resultsPerPage')) {
+      this.setState({ resultsPerPage: localStorage.getItem('resultsPerPage') })
+    }
+  }
+
   render() {
     return (
       <div>
@@ -125,6 +144,22 @@ export default class App extends Component {
           <p>Digite acima o nome do filme ou o gênero que você gostaria debuscar.</p>
         )}
 
+        {/* Messages containing number of results and options */}
+        {this.state.ready &&
+        <p>
+          Mostrando {this.state.displayData.length} de {this.state.movieData.length} resultados.
+          Mostrar <select
+            value={this.state.resultsPerPage}
+            onChange={this.handleResultsPerPage}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select> resultados por página.
+        </p>
+        }
+
         {/* Render Search Results */}
         {this.state.ready && this.renderResults()}
 
@@ -135,7 +170,7 @@ export default class App extends Component {
 
         {/* Show clear screen button */}
         {this.state.ready && (
-          <button onClick={this.emptyList}>Esvaziar Lista</button>
+          <button className="emtpy" onClick={this.handleEmptyList}>Esvaziar Lista</button>
         )}
       </div>
     );

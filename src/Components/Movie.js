@@ -1,11 +1,12 @@
 import React from "react";
 
-export default ({ image, title, date, overview, genres }) => {
+export default (props) => {
+  const { title, date, overview } = props.data;
   return (
     <div id="root">
       <div className="container">
         <div id="image">
-          <img src={image} alt="Movie' Poster" />
+          <img src={props.image} alt="Movie' Poster" />
         </div>
         <div id="content">
           <div id="movie-title">
@@ -18,8 +19,8 @@ export default ({ image, title, date, overview, genres }) => {
             <p>{overview}</p>
           </div>
           <div id="genres">
-            {genres &&
-              genres.map(genre => {
+            {props.genres &&
+              props.genres.map(genre => {
                 return <p key={Math.random()}>{genre}</p>;
               })}
           </div>
