@@ -9,7 +9,12 @@ export default (props) => {
           <img src={props.image} alt="Movie' Poster" />
         </div>
         <div id="content">
-          <div id="movie-title">
+          <div
+            id="movie-title"
+            onClick={() => {
+              props.handleTitleClick(props)
+            }}
+          >
             <p>{title}</p>
           </div>
           <div id="release-date">

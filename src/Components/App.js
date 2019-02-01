@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 import Movie from "./Movie";
+import MovieDetails from './MovieDetails';
+
 import "../styles/index.scss";
 
 export default class App extends Component {
@@ -15,6 +17,8 @@ export default class App extends Component {
     instructions: true,
     resultsPerPage: 5,
     currentPage: 1,
+    fullMovieDisplay: false,
+    fullMovieProps: ''
   };
 
   handleSubmit = searchText => {
@@ -73,6 +77,19 @@ export default class App extends Component {
     this.setState({ ready: false, instructions: true });
   };
 
+  handleTitleClick = (fullMovieProps) => {
+    this.setState({
+      ready: false,
+      fullMovieDisplay: true,
+      fullMovieProps,
+    })
+  }
+
+  handleReturnHomeScreen = () => this.setState({
+    fullMovieDisplay: false,
+    ready: true,
+  })
+
   renderResults = () => {
     return this.state.displayData.map((movie, index) => {
       let genreList = [];
@@ -88,6 +105,7 @@ export default class App extends Component {
           key={index}
           data={movie}
           image={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
+          handleTitleClick={this.handleTitleClick}
           genres={genreList}
         />
       );
@@ -141,7 +159,7 @@ export default class App extends Component {
 
         {/* Show instructions message */}
         {this.state.instructions && (
-          <p>Digite acima o nome do filme ou o gênero que você gostaria debuscar.</p>
+          <p>Digite acima o nome do filme ou o ano que você gostaria de buscar.</p>
         )}
 
         {/* Messages containing number of results and options */}
@@ -170,8 +188,18 @@ export default class App extends Component {
 
         {/* Show clear screen button */}
         {this.state.ready && (
-          <button className="emtpy" onClick={this.handleEmptyList}>Esvaziar Lista</button>
+          <button className="emtpy" onClick={this.handleEmptyList}><span id="empty-text">Esvaziar Lista</span></button>
         )}
+
+        {/* Render Movie Details */}
+        {this.state.fullMovieDisplay &&
+        <MovieDetails
+            data={this.state.fullMovieProps.data}
+            image={this.state.fullMovieProps.image}
+            genres={this.state.fullMovieProps.genres}
+            handleTitleClick={this.state.fullMovieProps.handleTitleClick}
+            handleReturnHomeScreen={this.handleReturnHomeScreen}
+        />}
       </div>
     );
   }

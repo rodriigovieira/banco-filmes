@@ -1,0 +1,64 @@
+.emtpy {
+  font-family: 'Abel', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  border: none;
+  background-color: lighten(navy, 30%);
+  padding: 0.7% 0.5% 0.5% 0.5%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  cursor: pointer;
+  color: white;
+  width: 20vw;
+  // height: 50px;
+  border-bottom: 5px solid lighten(navy, 5%);
+}
+
+@media (max-width: 900px) {
+  #empty-text {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  #empty-text {
+    font-size: 16px;
+    line-height: 1px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  #empty-text {
+    font-size: 14px;
+    padding: 0;
+  }
+  .empty {
+    height: 30px;
+
+  }
+}
+
+.page-link {
+  border: none;
+  padding: 1%;
+  color: blue;
+  text-decoration: underline;
+  display: inline;
+  background-color: white;
+}
+
+.page-link-selected {
+  border: none;
+}
+
+.page-link:hover {
+  transition: 0.5s;
+  color: darken(blue, 40%);
+  cursor: pointer;
+}
+
+.page-link:active {
+  color: black;
+  text-decoration: none;
+}
