@@ -33,7 +33,11 @@ export default class App extends Component {
     }
   }
 
-  handleLogoClick = () => this.setState({ fullMovieDisplay: false, instructions: true });
+  handleLogoClick = () => this.setState({
+    fullMovieDisplay: false,
+    instructions: true,
+    ready: false,
+  });
 
   handleSubmit = searchText => {
     this.setState({

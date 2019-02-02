@@ -4,10 +4,9 @@
 }
 
 #movie-box {
-  // display: flex;
   background-color: lightgray;
   width: 100%;
-  height: 800px;
+  height: 615px;
   margin-bottom: 3%;
   color: $bg-color;
 }
@@ -26,7 +25,7 @@
   align-self: center;
   padding-left: 5%;
   color: $bg-color;
-  font-size: 32px;
+  font-size: 48px;
 }
 
 #text-date {
@@ -34,7 +33,7 @@
   align-self: center;
   padding-right: 5%;
   color: darken(lightgray, 30%);
-  font-size: 16px;
+  font-size: 28px;
 }
 
 #box-image {
@@ -52,11 +51,18 @@
   display: flex;
   flex-flow: column wrap;
   padding-left: 5%;
+  width: 54vw;
+}
+
+#box-overview img {
+  margin-left: 128%;
+  height: 60%;
+  width: 60%;
 }
 
 hr {
   border: 1px solid $text-color;
-  width: 55%;
+  width: 60vw;
   margin-right: 95%;
   margin-bottom: 2%;
 }
@@ -65,22 +71,99 @@ hr {
   font-size: 24px;
   align-self: flex-start;
   justify-self: flex-start;
-  margin-top: 4%;
+  margin-top: 3%;
 }
 
 #text-overview {
+  color: gray;
+  font-size: 16px;
+  width: 60vw;
+  text-align: left;
+}
+
+#box-informations {
+  display: flex;
+  flex-flow: column wrap;
+  padding-left: 5%;
+  width: 54vw;
+}
+
+#text-informations-title {
+  font-size: 24px;
   align-self: flex-start;
   justify-self: flex-start;
-  word-wrap: break-word;
-  color: gray;
+  margin-top: 3%;
+}
+
+#informations-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 45%;
+  width: 60vw;
   font-size: 20px;
-  padding-right: 45%;
-  text-align: left;
+}
+
+#details-container {
+  display: inline-flex;
+  justify-content: space-between;
+  margin-right: 45%;
+  flex-direction: row;
+  font-size: 16px;
+  padding-left: 0.66%;
+  color: gray;
+  width: 60vw;
+}
+
+#detail-duration {
+  padding-left: 10%;
+  width: 10%;
+}
+
+#detail-language {
+  padding-left: 6%;
+}
+
+#detail-budget {
+  padding-left: 2.5%;
+}
+
+#detail-income {
+  padding-left: 2.5%;
+}
+
+#box-genres {
+  display: flex;
+  margin-left: 4.5%;
+  margin-top: 4%;
+}
+
+#box-genre {
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid $bg-color;
+  padding: 0.2% 0.6%;
+  margin: 0.5%;
+}
+
+#box-vote {
+  margin-left: 27%;
+}
+
+#circle-vote {
+  border-radius: 50%;
+  font-size: 28px;
+  padding: 3%;
+  box-sizing: border-box;
+  background-color: $bg-color;
+  color: $text-color;
+  border: 3px solid $bg-color;
+  box-shadow: 0px 0px 0px 7px $text-color inset;
 }
 
 #go-home {
   margin: 2%;
-  padding: 3px;
+  padding: 1%;
   font-weight: bold;
   font-size: 24px;
   border: none;

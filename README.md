@@ -26,7 +26,7 @@ E pronto! A instalação foi concluída com sucesso.
 
 # Utilização
 
-O pacote dispõe de três comandos:
+O pacote possui os seguintes comandos:
 
 ```
 yarn start

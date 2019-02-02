@@ -1,22 +1,7 @@
 import React from "react";
 
-// status (lançado, previsto, etc),
-// idioma,
-// duração,
-// orçamento,
-// receita,
-// lucro,
-// categorias 
-// trailer
-
-// nome
-// cartaz,
-// data de lançamento,
-// sinopse 
-// pontuação do filme
-
 export default (props) => {
-  const { title, date, overview } = props.data;
+  const { title, date, overview, vote_average } = props.data;
   return (
     <div id="root">
       <div className="container">
@@ -30,18 +15,23 @@ export default (props) => {
               props.handleTitleClick(props)
             }}
           >
-            <p>{title}</p>
+            <span id="text-title-movie">{title}</span>
+          </div>
+          <div id="votes-circle">
+            <span id="votes-circle-text">
+              {`${vote_average * 10}%`}
+            </span>
           </div>
           <div id="release-date">
             <p>{date}</p>
           </div>
           <div id="overview">
-            <p>{overview}</p>
+            <span id="text-overview-brief">{overview || <p>Sinopse indisponível.</p>}</span>
           </div>
-          <div id="genres">
+          <div id="container-genres">
             {props.genres &&
-              props.genres.map(genre => {
-                return <p key={Math.random()}>{genre}</p>;
+              props.genres.map((genre, index) => {
+                return <span id="circle-genre" key={index}>{genre}</span>;
               })}
           </div>
         </div>
