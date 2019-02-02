@@ -34,6 +34,8 @@ export default class App extends Component {
     
     const apiLink = isNaN(searchText) ? searchByMovieTitle : searchByYear;
 
+    console.log(apiLink);
+
     fetch(apiLink)
       .then(response => response.json())
       .then(movieData => {
@@ -80,8 +82,8 @@ export default class App extends Component {
   handleTitleClick = (fullMovieProps) => {
     this.setState({
       ready: false,
-      fullMovieDisplay: true,
       fullMovieProps,
+      fullMovieDisplay: true,
     })
   }
 
