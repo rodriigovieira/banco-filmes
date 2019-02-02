@@ -3,13 +3,22 @@ form {
 }
 
 #search-bar {
-  font-family: 'Lato', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 0.5% 0.5% 0.5% 1.5%;
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 2.5%;
-  margin-bottom: 1.5%;
+  margin-bottom: 0.1%;
   width: 80%;
-  border-radius: 15px;
+  border: 0.6px solid $bg-color;
+  border-radius: 10px;
   display: inline-block;
-  background-color: lightgray;
+  background-color: lighten(lightgray, 10%);
+  transition: 0.5s;
+}
+
+#search-bar:focus {
+  transition: 1s;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }

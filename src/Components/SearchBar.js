@@ -19,7 +19,7 @@ export default class SearchBar extends Component {
         }}>
           <input
             id="search-bar"
-            placeholder='Digite o título do filme ou o ano de lançamento.'
+            placeholder='Digite o título do filme ou o ano de lançamento'
             type="text"
             onChange={this.onChangeHandler}
             value={this.state.searchText}

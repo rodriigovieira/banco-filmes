@@ -147,7 +147,7 @@ export default class App extends Component {
 
         {/* Show instructions message */}
         {this.state.instructions && (
-          <p>Digite acima o nome do filme ou o ano que você gostaria de buscar.</p>
+          <p id="instructions">Digite acima o nome do filme ou o ano que você gostaria de buscar.</p>
         )}
 
         {/* Messages containing number of results and options */}

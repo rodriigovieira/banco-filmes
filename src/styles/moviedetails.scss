@@ -1,10 +1,92 @@
-button {
-  margin: 10px;
-  padding: 1px;
+#details {
+  font-size: 24px;
+  padding-bottom: 1%;
 }
 
 #movie-box {
-  display: flex;
+  // display: flex;
+  background-color: lightgray;
+  width: 100%;
+  height: 800px;
+  margin-bottom: 3%;
+  color: $bg-color;
 }
 
+#box-header {
+  height: 75px;
+  background-color: darken(lightgray, 10%);
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+  margin-bottom: -18px;
+}
 
+#text-title {
+  align-self: center;
+  padding-left: 5%;
+  color: $bg-color;
+  font-size: 32px;
+}
+
+#text-date {
+  justify-self: flex-end;
+  align-self: center;
+  padding-right: 5%;
+  color: darken(lightgray, 30%);
+  font-size: 16px;
+}
+
+#box-image {
+  justify-self: flex-end;
+  align-self: flex-end;
+  position: absolute;
+}
+
+#box-image-image {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+#box-overview {
+  display: flex;
+  flex-flow: column wrap;
+  padding-left: 5%;
+}
+
+hr {
+  border: 1px solid $text-color;
+  width: 55%;
+  margin-right: 95%;
+  margin-bottom: 2%;
+}
+
+#text-overview-title {
+  font-size: 24px;
+  align-self: flex-start;
+  justify-self: flex-start;
+  margin-top: 4%;
+}
+
+#text-overview {
+  align-self: flex-start;
+  justify-self: flex-start;
+  word-wrap: break-word;
+  color: gray;
+  font-size: 20px;
+  padding-right: 45%;
+  text-align: left;
+}
+
+#go-home {
+  margin: 2%;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 24px;
+  border: none;
+  background-color: lighten($bg-color, 30%);
+  cursor: pointer;
+  color: white;
+  width: 20vw;
+  border-bottom: 5px solid lighten($bg-color, 5%);
+}

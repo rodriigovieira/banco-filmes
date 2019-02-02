@@ -3,15 +3,18 @@
   font-weight: bold;
   font-size: 24px;
   border: none;
-  background-color: lighten(navy, 30%);
+  background-color: lighten($bg-color, 30%);
   padding: 0.7% 0.5% 0.5% 0.5%;
   margin-bottom: 1%;
   margin-top: 1%;
   cursor: pointer;
   color: white;
   width: 20vw;
-  // height: 50px;
-  border-bottom: 5px solid lighten(navy, 5%);
+  border-bottom: 5px solid lighten($bg-color, 5%);
+}
+
+#instructions {
+  font-size: 20px;
 }
 
 @media (max-width: 900px) {

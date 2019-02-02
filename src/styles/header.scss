@@ -1,6 +1,6 @@
 #header {
   display: flex;
-  background-color: navy;
+  background-color: $bg-color;
   height: 100px;
   width: 100%;
   flex: 1;
@@ -11,6 +11,6 @@
   flex: 1;
   justify-content: center;
   align-self: center;
-  color: lighten(navy, 45%);
+  color: lighten($text-color, 15%);
   font-size: 2.5rem;
 }

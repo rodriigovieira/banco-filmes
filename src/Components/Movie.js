@@ -1,5 +1,20 @@
 import React from "react";
 
+// status (lançado, previsto, etc),
+// idioma,
+// duração,
+// orçamento,
+// receita,
+// lucro,
+// categorias 
+// trailer
+
+// nome
+// cartaz,
+// data de lançamento,
+// sinopse 
+// pontuação do filme
+
 export default (props) => {
   const { title, date, overview } = props.data;
   return (
