@@ -22,7 +22,12 @@ export default class App extends Component {
   };
 
   handleSubmit = searchText => {
-    this.setState({ displayLoading: true, ready: false, instructions: false });
+    this.setState({
+      displayLoading: true,
+      ready: false,
+      instructions: false,
+      fullMovieDisplay: false
+    });
 
     const { resultsPerPage, currentPage } = this.state;
     const indexOfLastResult = resultsPerPage * currentPage;
@@ -33,8 +38,6 @@ export default class App extends Component {
     const searchByYear = `https://api.themoviedb.org/3/discover/movie?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&sort_by=popularity.desc&include_adult=true&include_video=true&page=1&year=${searchText}`
     
     const apiLink = isNaN(searchText) ? searchByMovieTitle : searchByYear;
-
-    console.log(apiLink);
 
     fetch(apiLink)
       .then(response => response.json())

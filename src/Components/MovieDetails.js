@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 
 // import Movie from './Movie';
 
-{/* <Movie
-  data={this.props.data}
-  image={this.props.image}
-  genres={this.props.genre}
-  handleTitleClick={this.props.handleTitleClick}
-/> */}
+// {/* <Movie
+//   data={this.props.data}
+//   image={this.props.image}
+//   genres={this.props.genre}
+//   handleTitleClick={this.props.handleTitleClick}
+// /> */}
 
 export default class MovieDetails extends Component {
   state = {
@@ -20,6 +20,8 @@ export default class MovieDetails extends Component {
     this.setState({ loading: true, videoLink: '' });
     
     const apiLink = `http://api.themoviedb.org/3/movie/${this.props.data.id}?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&append_to_response=videos`;
+
+    console.log(apiLink);
 
     fetch(apiLink)
       .then(response => response.json())
@@ -46,8 +48,8 @@ export default class MovieDetails extends Component {
         <div id="video">
         {!this.state.loading && 
             <iframe
-              width="560"
-              height="315"
+              width="100%"
+              height="800px"
               src={this.state.videoLink}
               frameBorder="0"
               allow="accelerometer; encrypted-media; gyroscope" 
@@ -66,20 +68,3 @@ export default class MovieDetails extends Component {
     )
   }
 }
-
-// export default (props) => {
-//   return (
-//     <div className="movie-expanded">
-//     <p>Mostrando mais detalhes do filme "{props.data.title}".</p>
-//       <Movie
-//         data={props.data}
-//         image={props.image}
-//         genres={props.genre}
-//         handleTitleClick={props.handleTitleClick}
-//       />
-//       <button
-//         onClick={props.handleReturnHomeScreen}
-//       >Retornar para a tela principal.</button>
-//     </div>
-//   )
-// }
