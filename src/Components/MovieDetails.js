@@ -19,7 +19,7 @@ export default class MovieDetails extends Component {
   componentDidMount() {
     this.setState({ loading: true, videoLink: '' });
     
-    const apiLink = `http://api.themoviedb.org/3/movie/${this.props.data.id}?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&append_to_response=videos`;
+    const apiLink = `https://api.themoviedb.org/3/movie/${this.props.data.id}?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&append_to_response=videos`;
 
     console.log(apiLink);
 
@@ -33,10 +33,7 @@ export default class MovieDetails extends Component {
             videoLink: `https://www.youtube.com/embed/${extraMovieDetails.videos.results[0].key}`
           })
         } else {
-          this.setState({
-            extraMovieDetails,
-            loading: false,
-          })
+          this.setState({ extraMovieDetails, loading: false })
         }
       })
   }
@@ -45,23 +42,41 @@ export default class MovieDetails extends Component {
     return (
       <div className="movie-expanded">
         <p>Mostrando mais detalhes do filme "{this.props.data.title}".</p>
+
+        {/* Rendering Box With Movie Info */}
+        <div id="movie-box">
+          <div id="box-header">
+
+          </div>
+          <div id="box-image">
+
+          </div>
+          <div id="box-overview">
+
+          </div>
+          <div id="box-info">
+
+          </div>
+          <div id="box-genres">
+
+          </div>
+          <div id="box-vote">
+
+          </div>
+        </div>
+
+        {/* Displaying Video Fetched From API */}
         <div id="video">
         {!this.state.loading && 
             <iframe
-              width="100%"
-              height="800px"
+              width="100%" height="700px" frameBorder="0" allowFullScreen
+              title="Movie Trailer" allow="accelerometer; encrypted-media; gyroscope" 
               src={this.state.videoLink}
-              frameBorder="0"
-              allow="accelerometer; encrypted-media; gyroscope" 
-              allowFullScreen
-              title="Movie Trailer"
             >
             </iframe>
           }
         </div>
-        <button
-          onClick={this.props.handleReturnHomeScreen}
-        >
+        <button onClick={this.props.handleReturnHomeScreen}>
           Retornar para a tela principal.
         </button>
       </div>
