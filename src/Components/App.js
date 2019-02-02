@@ -5,12 +5,14 @@ import SearchBar from "./SearchBar";
 import Movie from "./Movie";
 import MovieDetails from './MovieDetails';
 
+import { fetchGenres, getMovies } from '../utils/';
+
 import "../styles/index.scss";
 
 export default class App extends Component {
   state = {
     movieData: [],
-    genreList: [],
+    genres: [],
     displayData: [],
     displayLoading: false,
     ready: false,
@@ -20,6 +22,18 @@ export default class App extends Component {
     fullMovieDisplay: false,
     fullMovieProps: ''
   };
+
+  componentDidMount() {
+    // Fetching list of genres from TMDB with ID and name
+    fetchGenres().then(({ genres }) => this.setState({ genres }));
+
+    // Accessing LocalStorage and defining number of results per page
+    if (localStorage.getItem('resultsPerPage')) {
+      this.setState({ resultsPerPage: localStorage.getItem('resultsPerPage') })
+    }
+  }
+
+  handleLogoClick = () => this.setState({ fullMovieDisplay: false, instructions: true });
 
   handleSubmit = searchText => {
     this.setState({
@@ -33,26 +47,17 @@ export default class App extends Component {
     const indexOfLastResult = resultsPerPage * currentPage;
     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
 
-    const searchByMovieTitle = `https://api.themoviedb.org/3/search/movie?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&query=${searchText}&page=1&include_adult=true`;
-
-    const searchByYear = `https://api.themoviedb.org/3/discover/movie?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR&sort_by=popularity.desc&include_adult=true&include_video=true&page=1&year=${searchText}`
-    
-    const apiLink = isNaN(searchText) ? searchByMovieTitle : searchByYear;
-
-    fetch(apiLink)
-      .then(response => response.json())
-      .then(movieData => {
-        const displayData = movieData.results.slice(indexOfFirstResult,indexOfLastResult);
-
-        this.setState({
+    getMovies(searchText)
+      .then(movieData => this.setState({
           movieData: movieData.results,
-          displayData,
+          displayData: movieData.results.slice(indexOfFirstResult, indexOfLastResult),
           displayLoading: false,
           ready: true,
           instructions: false
-        });
-      });
+        }));
   };
+
+  handleEmptyList = () => this.setState({ ready: false, instructions: true });
 
   handleResultsPerPage = (event) => {
     const indexOfLastResult = event.target.value * this.state.currentPage;
@@ -78,10 +83,6 @@ export default class App extends Component {
     })
   }
 
-  handleEmptyList = () => {
-    this.setState({ ready: false, instructions: true });
-  };
-
   handleTitleClick = (fullMovieProps) => {
     this.setState({
       ready: false,
@@ -89,33 +90,6 @@ export default class App extends Component {
       fullMovieDisplay: true,
     })
   }
-
-  handleReturnHomeScreen = () => this.setState({
-    fullMovieDisplay: false,
-    ready: true,
-  })
-
-  renderResults = () => {
-    return this.state.displayData.map((movie, index) => {
-      let genreList = [];
-
-      if (movie.genre_ids) {
-        genreList = this.state.genreList
-          .filter(genre => movie.genre_ids.includes(genre.id))
-          .map(value => value.name);
-      }
-
-      return (
-        <Movie
-          key={index}
-          data={movie}
-          image={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
-          handleTitleClick={this.handleTitleClick}
-          genres={genreList}
-        />
-      );
-    });
-  };
 
   renderPageList = () => {
     const { movieData, resultsPerPage } = this.state;
@@ -139,22 +113,34 @@ export default class App extends Component {
     })
   }
 
-  componentDidMount() {
-    // Fetching list of genres from TMDB with ID and name
-    fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&language=pt-BR")
-      .then(response => response.json())
-      .then(genreList => this.setState({ genreList: genreList.genres }));
+  renderResults = () => {
+    return this.state.displayData.map((movie, index) => {
+      let genres = [];
 
-    // Accessing LocalStorage and defining number of results per page
-    if (localStorage.getItem('resultsPerPage')) {
-      this.setState({ resultsPerPage: localStorage.getItem('resultsPerPage') })
-    }
-  }
+      if (movie.genre_ids) {
+        genres = this.state.genres
+          .filter(genre => movie.genre_ids.includes(genre.id))
+          .map(value => value.name);
+      }
+
+      return (
+        <Movie
+          key={index}
+          data={movie}
+          image={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
+          handleTitleClick={this.handleTitleClick}
+          genres={genres}
+        />
+      );
+    });
+  };
+
+  handleReturnHomeScreen = () => this.setState({ fullMovieDisplay: false, ready: true})
 
   render() {
     return (
       <div>
-        <Header />
+        <Header handleLogoClick={this.handleLogoClick} />
         <SearchBar handleSubmit={this.handleSubmit} />
 
         {/* Show loading message */}
@@ -193,7 +179,9 @@ export default class App extends Component {
 
         {/* Show clear screen button */}
         {this.state.ready && (
-          <button className="emtpy" onClick={this.handleEmptyList}><span id="empty-text">Esvaziar Lista</span></button>
+          <button className="emtpy" onClick={this.handleEmptyList}>
+            <span id="empty-text">Esvaziar Lista</span>
+          </button>
         )}
 
         {/* Render Movie Details */}

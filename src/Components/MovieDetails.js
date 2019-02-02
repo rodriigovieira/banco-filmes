@@ -21,8 +21,6 @@ export default class MovieDetails extends Component {
     
     const apiLink = `https://api.themoviedb.org/3/movie/${this.props.data.id}?api_key=3a9b881a75eeb15cfc1a9051e9889d7f&append_to_response=videos`;
 
-    console.log(apiLink);
-
     fetch(apiLink)
       .then(response => response.json())
       .then(extraMovieDetails => {
