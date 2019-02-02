@@ -77,10 +77,7 @@ export default class App extends Component {
     const indexOfFirstResult = indexOfLastResult - this.state.resultsPerPage;
     const displayData = this.state.movieData.slice(indexOfFirstResult, indexOfLastResult);
 
-    this.setState({
-      currentPage: event.target.id,
-      displayData,
-    })
+    this.setState({ currentPage: event.target.id, displayData })
   }
 
   handleTitleClick = (fullMovieProps) => {
