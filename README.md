@@ -4,7 +4,7 @@ Esse é um web-app responsivo que consome a API do The Movie DB Database, permit
 
 O aplicativo foi feito utilizando o framework React, através da ferramenta Create-React-App.
 
-O aplicativo pode ser visualizado ao vivo no link: https://banco-filmes.netlify.com/. Todavia, o aplicativo também pode ser instalado localmente. Basta seguir os passos abaixo:
+O aplicativo pode ser visualizado ao vivo no link: https://movies.rodrigovieira.work/. Todavia, o aplicativo também pode ser instalado localmente. Basta seguir os passos abaixo:
 
 # Instalação
 
